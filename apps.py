@@ -7,6 +7,7 @@ from textblob import TextBlob
 import spacy
 from gensim.summarization.summarizer import summarize 
 from gensim.summarization import keywords
+from spacy.lang.en import English
 
 # Sumy Summary Pkg
 from sumy.parsers.plaintext import PlaintextParser
@@ -26,7 +27,7 @@ def sumy_summarizer(docx):
 # Function to Analyse Tokens and Lemma
 @st.cache
 def text_analyzer(my_text):
-	nlp = spacy.load('en')
+	nlp = English()
 	docx = nlp(my_text)
 	# tokens = [ token.text for token in docx]
 	allData = [('"Token":{},\n"Lemma":{}'.format(token.text,token.lemma_))for token in docx ]
@@ -35,7 +36,7 @@ def text_analyzer(my_text):
 # Function For Extracting Entities
 @st.cache
 def entity_analyzer(my_text):
-	nlp = spacy.load('en')
+	nlp = English()
 	docx = nlp(my_text)
 	tokens = [ token.text for token in docx]
 	entities = [(entity.text,entity.label_)for entity in docx.ents]
